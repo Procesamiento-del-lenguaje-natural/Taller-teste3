@@ -22,9 +22,9 @@ jobs:
         cd notebooks
         jupyter nbconvert --to notebook --execute Ejercicio1.ipynb --output Ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3
         cd ..
-    - name: Run tests (robusto)
+    - name: Run tests
       run: |
-        if [ -f tests/test2_GIT.py ]; then pytest tests/test2_GIT.py; else echo "Archivo tests/test2_GIT.py no encontrado, omitiendo tests"; fi
+        pytest tests/test2.py
     - name: Upload notebook output
       uses: actions/upload-artifact@v4
       with:
