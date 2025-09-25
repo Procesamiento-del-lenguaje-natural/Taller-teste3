@@ -15,11 +15,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install nbconvert ipykernel
+        pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
     - name: Ejecutar notebook y exportar resultados
       run: |
-        jupyter nbconvert --to notebook --execute notebooks/Ejercicio1.ipynb --output notebooks/Ejercicio1_out.ipynb
+        jupyter nbconvert --to notebook --execute notebooks/Ejercicio1.ipynb --output notebooks/Ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3
     - name: Run tests
       run: |
         pytest tests/test2_GIT.py
