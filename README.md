@@ -40,3 +40,23 @@ O agrégalo a tu `requirements.txt` y ejecuta:
 pip install -r requirements.txt
 ```
 
+## Ejemplo de ejecución de tests
+
+Para ejecutar un test específico, por ejemplo `test_1.py`, usa:
+
+```bash
+pytest tests/ejercicio1/test_1.py
+```
+
+Para ejecutar todos los tests del ejercicio 1:
+
+```bash
+pytest tests/ejercicio1/
+```
+
+Para ejecutar todos los tests de la carpeta:
+
+```bash
+pytest tests/
+```
+
