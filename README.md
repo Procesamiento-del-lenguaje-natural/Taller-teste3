@@ -40,6 +40,18 @@ O agrégalo a tu `requirements.txt` y ejecuta:
 pip install -r requirements.txt
 ```
 
+## Requisitos para ejecutar los tests
+
+- Es necesario instalar el paquete `nbformat` para que los tests que analizan notebooks funcionen correctamente.
+
+Puedes instalarlo ejecutando:
+
+```bash
+pip install nbformat
+```
+
+Esto permite que los tests lean y validen el código directamente desde los archivos `.ipynb` sin modificar rutas ni la estructura de carpetas.
+
 ## Ejemplo de ejecución de tests
 
 Para ejecutar un test específico, por ejemplo `test_1.py`, usa:
