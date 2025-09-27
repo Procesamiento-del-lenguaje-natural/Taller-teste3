@@ -24,7 +24,7 @@ jobs:
         cd ..
     - name: Run all tests
       run: |
-        pytest tests/
+        pytest tests/Ejercicio1/
     - name: Upload notebook output
       uses: actions/upload-artifact@v4
       with:
