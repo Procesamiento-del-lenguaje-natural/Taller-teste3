@@ -1,11 +1,11 @@
-def validar_traduccion_correcta():
-def test_traduccion_correcta():
+
 import os
 import nbformat
 import re
 import pytest
 
-# Ruta relativa al notebook
+def test_traduccion_correcta():
+    # Ruta relativa al notebook
     test_dir = os.path.dirname(__file__)
     notebook_path = os.path.join(test_dir, '..', '..', '..', 'notebooks', 'Ejercicio1.ipynb')
     notebook_path = os.path.abspath(notebook_path)
@@ -17,7 +17,6 @@ import pytest
     assert ("print(" in codigo and ".translate(" in codigo), (
         "No se encontró ningún 'print()' que imprima una traducción con .translate().")
     # Buscar variables relevantes
-    # Simular ejecución: buscar asignaciones a variables relevantes
     relevantes = re.findall(r"([a-zA-Z0-9_]+)\s*=.*", codigo)
     relevantes = [v for v in relevantes if any(p in v for p in ["traducido", "restaurado", "decode", "mensaje"])]
     assert relevantes, (
