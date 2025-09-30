@@ -6,7 +6,7 @@ def test_uso_maketrans_y_translate():
     import os
     import nbformat
     test_dir = os.path.dirname(__file__)
-    notebook_path = os.path.join(test_dir, '..', '..', '..', 'notebooks', 'ejercicio2.ipynb')
+    notebook_path = os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio2.ipynb')
     notebook_path = os.path.abspath(notebook_path)
     with open(notebook_path, encoding="utf-8") as f:
         nb = nbformat.read(f, as_version=4)
