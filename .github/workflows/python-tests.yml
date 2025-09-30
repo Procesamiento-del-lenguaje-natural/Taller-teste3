@@ -21,14 +21,10 @@ jobs:
       run: ls -l notebooks
     - name: Ejecutar notebook ejercicio1
       run: |
-        cd notebooks
-        jupyter nbconvert --to notebook --execute ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --debug
-        cd ..
+        jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output notebooks/ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --debug
     - name: Ejecutar notebook ejercicio2
       run: |
-        cd notebooks
-        jupyter nbconvert --to notebook --execute ejercicio2.ipynb --output ejercicio2_out.ipynb --ExecutePreprocessor.kernel_name=python3
-        cd ..
+        jupyter nbconvert --to notebook --execute notebooks/ejercicio2.ipynb --output notebooks/ejercicio2_out.ipynb --ExecutePreprocessor.kernel_name=python3
     - name: Install nbformat
       run: pip install nbformat
     - name: Run all tests
