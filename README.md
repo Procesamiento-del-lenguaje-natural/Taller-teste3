@@ -14,7 +14,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### MacOS / Linux
+### MacOS / Linux 
 
 Abre la terminal en la carpeta del proyecto y ejecuta:
 
