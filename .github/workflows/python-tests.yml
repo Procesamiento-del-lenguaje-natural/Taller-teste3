@@ -17,10 +17,15 @@ jobs:
         pip install -r requirements.txt
         pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
-    - name: Ejecutar notebook y exportar resultados
+    - name: Ejecutar notebook ejercicio1
       run: |
         cd notebooks
-        jupyter nbconvert --to notebook --execute Ejercicio1.ipynb --output Ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3
+        jupyter nbconvert --to notebook --execute ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3
+        cd ..
+    - name: Ejecutar notebook ejercicio2
+      run: |
+        cd notebooks
+        jupyter nbconvert --to notebook --execute ejercicio2.ipynb --output ejercicio2_out.ipynb --ExecutePreprocessor.kernel_name=python3
         cd ..
     - name: Install nbformat
       run: pip install nbformat
@@ -30,5 +35,5 @@ jobs:
     - name: Upload notebook output
       uses: actions/upload-artifact@v4
       with:
-        name: Ejercicio1_out
-        path: notebooks/Ejercicio1_out.ipynb
+  name: ejercicio1_out
+  path: notebooks/ejercicio1_out.ipynb
