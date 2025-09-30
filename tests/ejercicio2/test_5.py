@@ -36,5 +36,4 @@ def test_traduccion_correcta():
     assert relevantes, (
         f"No se encontraron variables tipo string relevantes en el código. Variables encontradas: {relevantes}. "
         "Usa nombres descriptivos como 'mensaje_traducido', 'encoded_message', 'decoded_message'.")
-    # Opcional: podrías intentar ejecutar el notebook y comparar valores, pero esto requiere más setup
 
