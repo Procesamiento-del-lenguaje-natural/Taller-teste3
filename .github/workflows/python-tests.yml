@@ -17,10 +17,12 @@ jobs:
         pip install -r requirements.txt
         pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
+    - name: Listar archivos notebooks
+      run: ls -l notebooks
     - name: Ejecutar notebook ejercicio1
       run: |
         cd notebooks
-        jupyter nbconvert --to notebook --execute ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3
+        jupyter nbconvert --to notebook --execute ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --debug
         cd ..
     - name: Ejecutar notebook ejercicio2
       run: |
