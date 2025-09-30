@@ -52,6 +52,24 @@ pip install nbformat
 
 Esto permite que los tests lean y validen el código directamente desde los archivos `.ipynb` sin modificar rutas ni la estructura de carpetas.
 
+## Requisitos adicionales para los tests de Ejercicio 2
+
+- Es necesario instalar el paquete `nbformat` para que los tests que analizan notebooks funcionen correctamente.
+- Si usas GitHub Actions, asegúrate de agregar la instalación de `nbformat` en el workflow.
+
+Puedes instalarlo ejecutando:
+
+```bash
+pip install nbformat
+```
+
+En GitHub Actions, agrega este paso antes de ejecutar los tests:
+
+```yaml
+- name: Instalar nbformat
+  run: pip install nbformat
+```
+
 ## Ejemplo de ejecución de tests
 
 Para ejecutar un test específico, por ejemplo `test_1.py`, usa:

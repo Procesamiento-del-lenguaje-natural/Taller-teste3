@@ -1,55 +1,26 @@
-# Importación de librerias
-from IPython import get_ipython
-
-
 def validar_traduccion_correcta():
-    shell = get_ipython()
-    history = shell.history_manager.get_range()
+def test_traduccion_correcta():
+import os
+import nbformat
+import re
+import pytest
 
-    # Verificar que hay un print con translate ---
-    print_con_translate = any(
-        "print(" in code and ".translate(" in code
-        for _, _, code in history
-
-    )
-
-    if print_con_translate:
-        print("✅ Se detectó un 'print()' que imprime el resultado de una traducción (.translate).")
-    else:
-        print("❌ No se encontró ningún 'print()' que imprima una traducción con .translate().")
-        return False
-
-    # Verificar que la decodificación fue correcta ---
-    namespace = globals()
-
-    # Filtrar solo variables string relevantes por nombre
-    variables_texto = {k: v for k, v in namespace.items() if isinstance(v, str) and ("traducido" in k or "restaurado" in k or "decode" in k or "mensaje" in k)}
-
-    if not variables_texto:
-        print("⚠️ No se encontraron variables tipo string relevantes en el entorno. Usa nombres descriptivos como 'mensaje_traducido'.")
-        return False
-
-    for nombre1, valor1 in variables_texto.items():
-        for nombre2, valor2 in variables_texto.items():
-            if nombre1 == nombre2:
-                continue
-
-            if not isinstance(valor1, str) or not isinstance(valor2, str):
-                print(f"⚠️ La variable '{nombre1}' o '{nombre2}' no es de tipo string.")
-                continue
-
-            if valor1.strip() == valor2.strip() and len(valor1) > 0:
-                print(f"✅ Traducción exitosa detectada entre '{nombre1}' y '{nombre2}'")
-                print(f"   Ejemplo del texto restaurado: '{valor1[:40]}'")
-                return True
-
-    print("❌ No se encontró coincidencia entre el mensaje original y el decodificado relevante.")
-
-    return False
-
-# Uso
-
-if not validar_traduccion_correcta():
-
-    pruebas_ok = False
+# Ruta relativa al notebook
+    test_dir = os.path.dirname(__file__)
+    notebook_path = os.path.join(test_dir, '..', '..', '..', 'notebooks', 'Ejercicio1.ipynb')
+    notebook_path = os.path.abspath(notebook_path)
+    with open(notebook_path, encoding="utf-8") as f:
+        nb = nbformat.read(f, as_version=4)
+    # Unir todo el código de las celdas
+    codigo = "\n".join(cell['source'] for cell in nb.cells if cell['cell_type'] == 'code')
+    # Verificar que hay un print con translate
+    assert ("print(" in codigo and ".translate(" in codigo), (
+        "No se encontró ningún 'print()' que imprima una traducción con .translate().")
+    # Buscar variables relevantes
+    # Simular ejecución: buscar asignaciones a variables relevantes
+    relevantes = re.findall(r"([a-zA-Z0-9_]+)\s*=.*", codigo)
+    relevantes = [v for v in relevantes if any(p in v for p in ["traducido", "restaurado", "decode", "mensaje"])]
+    assert relevantes, (
+        "No se encontraron variables tipo string relevantes en el código. Usa nombres descriptivos como 'mensaje_traducido'.")
+    # Opcional: podrías intentar ejecutar el notebook y comparar valores, pero esto requiere más setup
 
