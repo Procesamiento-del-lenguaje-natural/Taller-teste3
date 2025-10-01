@@ -8,14 +8,10 @@ def test_validacion_test_6():
     
     # Configurar rutas del notebook 
     test_dir = os.path.dirname(__file__)
-    notebook_paths = [
-        os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio3_out.ipynb'),  # Ejecutado
-        os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio3.ipynb')       # Original
-    ]
+    notebook_path = os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio3.ipynb')
     
-    # Usar el primer notebook que exista
-    notebook_path = next((path for path in notebook_paths if os.path.exists(path)), None)
-    assert notebook_path, "No se encontró el archivo ejercicio3.ipynb"
+    # Verificar que el notebook existe
+    assert os.path.exists(notebook_path), "No se encontró el archivo ejercicio3.ipynb"
     
     # Leer y procesar notebook
     with open(os.path.abspath(notebook_path), encoding="utf-8") as f:
@@ -42,7 +38,7 @@ def test_validacion_test_6():
             f"Asegúrate de incluir '{patron}' en tu código."
         )
     
-    # Verificaciones adicionales más específicas
+    # Verificaciones adicionales más específicas 
     # Verificar que se use re.match específicamente con los patrones de números y letras
     assert any(patron in codigo_completo for patron in [r"re.match(r'^\d+$'", r're.match(r"^\d+$"']), (
         "❌ No se encontró re.match() usado específicamente para validar números.\n"
