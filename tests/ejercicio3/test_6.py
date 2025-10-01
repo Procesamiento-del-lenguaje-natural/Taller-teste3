@@ -1,55 +1,57 @@
 # Test 6 - Validación de la función re.match en ejercicio3
 import re
 import os
+import nbformat
 
 def test_validacion_test_6():
+    """Test que valida el uso correcto de re.match() con patrones regex específicos"""
     
-    import nbformat
+    # Configurar rutas del notebook 
+    test_dir = os.path.dirname(__file__)
+    notebook_paths = [
+        os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio3_out.ipynb'),  # Ejecutado
+        os.path.join(test_dir, '..', '..', 'notebooks', 'ejercicio3.ipynb')       # Original
+    ]
     
-    test_6_dir = os.path.dirname(__file__)
+    # Usar el primer notebook que exista
+    notebook_path = next((path for path in notebook_paths if os.path.exists(path)), None)
+    assert notebook_path, "No se encontró el archivo ejercicio3.ipynb"
     
-    # Intentar primero el notebook ejecutado
-    executed_notebook_path = os.path.join(test_6_dir, '..', '..', 'notebooks', 'ejercicio3_out.ipynb')
-    original_notebook_path = os.path.join(test_6_dir, '..', '..', 'notebooks', 'ejercicio3.ipynb')
-
-    # Usar el notebook ejecutado si existe, sino el original
-    if os.path.exists(executed_notebook_path):
-        notebook_path = executed_notebook_path
-    else:
-        notebook_path = original_notebook_path
-    
-    notebook_path = os.path.abspath(notebook_path)
-    
-    with open(notebook_path, encoding="utf-8") as f:
+    # Leer y procesar notebook
+    with open(os.path.abspath(notebook_path), encoding="utf-8") as f:
         nb = nbformat.read(f, as_version=4)
     
-    # Unir todo el código de las celdas
+    # Extraer código de todas las celdas de código
     codigo_completo = "\n".join(
         cell.source for cell in nb.cells if cell.cell_type == "code"
     )
     
-    # Verificar que se use re.match con patrones correctos
-    # Patrón para números: ^\d+$
-    assert "re.match(" in codigo_completo, (
-        "No se encontró el uso de 're.match()' en el código."
+    # Definir patrones requeridos y sus descripciones
+    patrones_requeridos = [
+        ("import re", "Importación del módulo 're'"),
+        ("re.match(", "Uso de la función 're.match()'"),
+        (r"^\d+$", "Patrón regex para validar números (^\d+$)"),
+        (r"^[a-zA-Z]+$", "Patrón regex para validar letras (^[a-zA-Z]+$)"),
+        ("Calle|Carrera", "Patrón regex para validar direcciones con (Calle|Carrera)"),
+    ]
+    
+    # Verificar cada patrón requerido
+    for patron, descripcion in patrones_requeridos:
+        assert patron in codigo_completo, (
+            f"❌ No se encontró: {descripcion}\n"
+            f"Asegúrate de incluir '{patron}' en tu código."
+        )
+    
+    # Verificaciones adicionales más específicas
+    # Verificar que se use re.match específicamente con los patrones de números y letras
+    assert any(patron in codigo_completo for patron in [r"re.match(r'^\d+$'", r're.match(r"^\d+$"']), (
+        "❌ No se encontró re.match() usado específicamente para validar números.\n"
+        "Ejemplo esperado: re.match(r'^\d+$', texto)"
     )
     
-    assert r"^\d+$" in codigo_completo, (
-        "No se encontró el patrón '^\d+$' para validar números."
+    assert any(patron in codigo_completo for patron in [r"re.match(r'^[a-zA-Z]+$'", r're.match(r"^[a-zA-Z]+$"']), (
+        "❌ No se encontró re.match() usado específicamente para validar letras.\n"
+        "Ejemplo esperado: re.match(r'^[a-zA-Z]+$', texto)"
     )
     
-    # Patrón para letras: ^[a-zA-Z]+$ 
-    assert r"^[a-zA-Z]+$" in codigo_completo, (
-        "No se encontró el patrón '^[a-zA-Z]+$' para validar letras."
-    )
-    
-    # Patrón para direcciones: debe contener (Calle|Carrera)
-    assert "Calle|Carrera" in codigo_completo, (
-        "No se encontró el patrón '(Calle|Carrera)' para validar direcciones."
-    )
-    
-    # Verificar que se importe el módulo re
-    assert "import re" in codigo_completo, (
-        "No se encontró 'import re' en el código. "
-        "Asegúrate de importar el módulo re al inicio."
-    )
+    print("✅ Todos los patrones regex requeridos están presentes en el código")
