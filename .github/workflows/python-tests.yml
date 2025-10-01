@@ -20,9 +20,6 @@ jobs:
         pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
     
-    - name: Listar archivos notebooks
-      run: ls -l notebooks/
-    
     - name: Ejecutar notebook ejercicio1
       run: |
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
@@ -46,12 +43,3 @@ jobs:
     - name: Run tests ejercicio3
       run: |
         pytest tests/ejercicio3/ -v
-    
-    - name: Upload notebook outputs
-      uses: actions/upload-artifact@v4
-      with:
-        name: notebook-outputs
-        path: |
-          notebooks/ejercicio1_out.ipynb
-          notebooks/ejercicio2_out.ipynb
-          notebooks/ejercicio3_out.ipynb
