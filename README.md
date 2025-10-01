@@ -28,46 +28,40 @@ Si agregas paquetes a `requirements.txt` (por ejemplo, `pyspellchecker`), solo d
 
 ## Dependencias adicionales para pruebas
 
-Para ejecutar los tests, asegúrate de instalar pytest:
+Para ejecutar los tests, necesitas instalar las siguientes dependencias:
 
-```
+### pytest (Framework de testing)
+```bash
 pip install pytest
 ```
 
-O agrégalo a tu `requirements.txt` y ejecuta:
-
+### nbformat (Para análisis de notebooks)
+```bash
+pip install nbformat
 ```
+
+**Importante**: El paquete `nbformat` es esencial para que los tests funcionen correctamente, ya que permite:
+- Leer y analizar archivos `.ipynb` (Jupyter notebooks)
+- Validar el código directamente desde los notebooks
+- Mantener la estructura de carpetas sin modificaciones
+
+### Instalación completa desde requirements.txt
+
+Todas las dependencias están listadas en `requirements.txt`. Para instalar todo de una vez:
+
+```bash
 pip install -r requirements.txt
 ```
 
-## Requisitos para ejecutar los tests
+### Para GitHub Actions
 
-- Es necesario instalar el paquete `nbformat` para que los tests que analizan notebooks funcionen correctamente.
-
-Puedes instalarlo ejecutando:
-
-```bash
-pip install nbformat
-```
-
-Esto permite que los tests lean y validen el código directamente desde los archivos `.ipynb` sin modificar rutas ni la estructura de carpetas.
-
-## Requisitos adicionales para los tests de Ejercicio 2
-
-- Es necesario instalar el paquete `nbformat` para que los tests que analizan notebooks funcionen correctamente.
-- Si usas GitHub Actions, asegúrate de agregar la instalación de `nbformat` en el workflow.
-
-Puedes instalarlo ejecutando:
-
-```bash
-pip install nbformat
-```
-
-En GitHub Actions, agrega este paso antes de ejecutar los tests:
+Si usas GitHub Actions, asegúrate de incluir este paso en tu workflow:
 
 ```yaml
-- name: Instalar nbformat
-  run: pip install nbformat
+- name: Install dependencies
+  run: |
+    pip install pytest nbformat
+    pip install -r requirements.txt
 ```
 
 ## Ejemplo de ejecución de tests

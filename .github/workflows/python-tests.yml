@@ -39,6 +39,14 @@ jobs:
       run: |
         pytest tests/ejercicio2/ -v
     
+    - name: Ejecutar notebook ejercicio3
+      run: |
+        jupyter nbconvert --to notebook --execute notebooks/ejercicio3.ipynb --output ejercicio3_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
+    
+    - name: Run tests ejercicio3
+      run: |
+        pytest tests/ejercicio3/ -v
+    
     - name: Upload notebook outputs
       uses: actions/upload-artifact@v4
       with:
@@ -46,3 +54,4 @@ jobs:
         path: |
           notebooks/ejercicio1_out.ipynb
           notebooks/ejercicio2_out.ipynb
+          notebooks/ejercicio3_out.ipynb
