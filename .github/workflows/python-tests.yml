@@ -43,3 +43,11 @@ jobs:
     - name: Run tests ejercicio3
       run: |
         pytest tests/ejercicio3/ -v
+    
+    - name: Ejecutar notebook ejercicio4
+      run: |
+        jupyter nbconvert --to notebook --execute notebooks/ejercicio4.ipynb --output ejercicio4_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
+    
+    - name: Run tests ejercicio4
+      run: |
+        pytest tests/ejercicio4/ -v
