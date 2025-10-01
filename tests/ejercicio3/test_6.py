@@ -28,17 +28,25 @@ def test_validacion_test_6():
         cell.source for cell in nb.cells if cell.cell_type == "code"
     )
     
-    # Patrones específicos que deben estar dentro de re.match() 
-    patrones_requeridos = [
-        (r"re\.match\(r['\"]^\\\d\+\$['\"]", "Función re.match para validar números incorrecta"),
-        (r"re\.match\(r['\"]^\[a-zA-Z\]\+\$['\"]", "Función re.match para validar letras incorrecta"),
-        (r"re\.match\(r['\"]^\(Calle\|Carrera\).*\$['\"]", "Función re.match para validar direcciones incorrecta")
-    ]
+    # Verificar que se use re.match con patrones correctos
+    # Patrón para números: ^\d+$
+    assert "re.match(" in codigo_completo, (
+        "No se encontró el uso de 're.match()' en el código."
+    )
     
-    # Verificar cada patrón dentro de re.match
-    for patron_regex, descripcion in patrones_requeridos:
-        patron_encontrado = re.search(patron_regex, codigo_completo)
-        assert patron_encontrado, f"No se encontró {descripcion} en el código."
+    assert r"^\d+$" in codigo_completo, (
+        "No se encontró el patrón '^\d+$' para validar números."
+    )
+    
+    # Patrón para letras: ^[a-zA-Z]+$ 
+    assert r"^[a-zA-Z]+$" in codigo_completo, (
+        "No se encontró el patrón '^[a-zA-Z]+$' para validar letras."
+    )
+    
+    # Patrón para direcciones: debe contener (Calle|Carrera)
+    assert "Calle|Carrera" in codigo_completo, (
+        "No se encontró el patrón '(Calle|Carrera)' para validar direcciones."
+    )
     
     # Verificar que se importe el módulo re
     assert "import re" in codigo_completo, (
