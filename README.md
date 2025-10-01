@@ -64,7 +64,7 @@ Si usas GitHub Actions, asegúrate de incluir este paso en tu workflow:
     pip install -r requirements.txt
 ```
 
-## Ejemplo de ejecución de tests
+## Ejemplo de ejecución de tests 
 
 Para ejecutar un test específico, por ejemplo `test_1.py`, usa:
 
@@ -83,4 +83,29 @@ Para ejecutar todos los tests de la carpeta:
 ```bash
 pytest tests/
 ```
+
+## ⚠️ Requisitos específicos para el Ejercicio 4
+
+El **Ejercicio 4** (procesamiento de tweets) tiene validaciones especiales que requieren:
+
+### 🔍 **Estructura obligatoria del código:**
+- **DEBE usar un loop:** `for ... in tweets` (usando la variable `tweets` original)
+- **DEBE incluir estas funciones específicas:**
+  - `re.sub(` con asignación (`=`)
+  - `.lower()` como método
+  - `.append()` para agregar a la lista
+  - `emoji_pattern.sub(` para remover emojis
+
+### 📋 **Variable de salida requerida:**
+- **DEBE crear:** `tweets_procesados` (lista con 10 tweets procesados)
+- **DEBE procesar:** Saltos de línea, URLs, minúsculas, emojis
+
+### ⚡ **Validaciones automáticas:**
+- **Test 8:** Verifica estructura del código y uso de funciones (anti-trampa)
+- **Test 9:** Verifica funcionalidad y salida correcta
+
+### 💡 **Consejos:**
+- NO modifiques los tweets originales en la primera celda
+- USA exactamente `tweets_procesados` como nombre de variable final
+- El loop DEBE iterar sobre `tweets` (no copies individuales)
 
