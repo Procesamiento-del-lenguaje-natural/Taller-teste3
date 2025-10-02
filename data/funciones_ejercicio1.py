@@ -1,4 +1,4 @@
-# funciones_ejercicio1.py
+# funciones_ejercicio1.py no modificar este archivo
 
 def obtener_variables_ejercicio1():
     texto1 = 'ESTE TEXTO EN MINUSCULAS'
