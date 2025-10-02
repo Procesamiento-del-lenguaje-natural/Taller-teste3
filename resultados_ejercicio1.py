@@ -10,4 +10,4 @@ texto4_t = 'programar'
 texto5_t = 'jhon loves programming'
 texto6_t = ['Hello', 'World,', 'today', 'is', 'a', 'great', 'day']
 texto7_t = 169
-texto8_t = 'El examen era mañana y yo a�n ten�a mucho que estudiar. Me tom� un vaso de leche con az�car, dej� de mirar el c�sped por la ventana de la habitaci�n y, aunque era dif�cil, me puse a estudiar como nunca antes hab�a hecho.'
+texto8_t = 'El examen era mañana y yo aNn tenNa mucho que estudiar. Me tomN un vaso de leche con azNcar, dejN de mirar el cNsped por la ventana de la habitaciNn y, aunque era difNcil, me puse a estudiar como nunca antes habNa hecho.'

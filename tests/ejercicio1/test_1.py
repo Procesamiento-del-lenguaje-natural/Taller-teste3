@@ -1,13 +1,15 @@
 import sys
 import os
 import pytest
+
+# Añadir la ruta al directorio 'data' para importar la función
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
 from funciones_ejercicio1 import obtener_variables_ejercicio1
 
+
 def test_variables_no_modificadas():
     originales = obtener_variables_ejercicio1()
-    # Aquí se definen las variables del alumno (simulación)
-    # Puedes modificar alguna para probar que el test falle
+    
     texto1 = 'ESTE TEXTO EN MINUSCULAS'
     texto2 = 'este texto en mayusculas'
     nombre = 'alejandro jimenez franco'

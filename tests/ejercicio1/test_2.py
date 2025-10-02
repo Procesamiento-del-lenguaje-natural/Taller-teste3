@@ -23,25 +23,25 @@ def test_transformaciones_correctas():
     originales = obtener_variables_ejercicio1()
     ns = resultados
 
-    # 1. texto1 -> minusculas
-    assert find_in_namespace(originales["texto1"].lower(), str, ns), "No se encontró ninguna variable con texto1.lower()"
+    # variable: texto1 a minusculas
+    assert find_in_namespace(originales["texto1"].lower(), str, ns), "No se encontró ninguna función adecuada para texto1"
+    
+    # variable: texto2 a mayusculas
+    assert find_in_namespace(originales["texto2"].upper(), str, ns), "No se encontró ninguna función adecuada para texto2"
 
-    # 2. texto2 -> mayusculas
-    assert find_in_namespace(originales["texto2"].upper(), str, ns), "No se encontró ninguna variable con texto2.upper()"
+    # variable: nombre cada primer letra de cada palabra en mayuscula
+    assert find_in_namespace(originales["nombre"].capitalize(), str, ns), "No se encontró ninguna función adecuada para nombre"
 
-    # 3. nombre -> capitalize
-    assert find_in_namespace(originales["nombre"].capitalize(), str, ns), "No se encontró ninguna variable con nombre.capitalize()"
+    #variable: texto3 capitalizado
+    assert find_in_namespace(originales["texto3"].capitalize(), str, ns), "No se encontró ninguna función adecuada para texto3"
 
-    # 4. texto3 -> capitalize
-    assert find_in_namespace(originales["texto3"].capitalize(), str, ns), "No se encontró ninguna variable con texto3.capitalize()"
+    # variable: apples contar las ocurrencias de la palabra 'apples'
+    assert find_in_namespace(originales["apples"].count("apples"), int, ns), "No se encontró ninguna función adecuada para apples"
 
-    # 5. apples -> count("apples")
-    assert find_in_namespace(originales["apples"].count("apples"), int, ns), "No se encontró ninguna variable con apples.count('apples')"
+    # variable: apples encontrar en que lugar del texto esta palabra 'aeppel'
+    assert find_in_namespace(originales["apples"].find("aeppel"), int, ns), "No se encontró ninguna función adecuada para aeppel"
 
-    # 6. apples -> find("aeppel")
-    assert find_in_namespace(originales["apples"].find("aeppel"), int, ns), "No se encontró ninguna variable con apples.find('aeppel')"
-
-    # 7. formateo -> format (solo revisamos que haya aplicado format, no valores fijos)
+    # variable: formateo darle tu nombre y tu edad al texto
     found_format = False
     for var_name in dir(ns):
         if not var_name.startswith('__'):
@@ -49,15 +49,15 @@ def test_transformaciones_correctas():
             if isinstance(var_value, str) and "My name is" in var_value and "I'm" in var_value:
                 found_format = True
                 break
-    assert found_format, "No se encontró ninguna variable que corresponda a formateo.format(...)"
+    assert found_format, "No se encontró ninguna función adecuada para formateo"
 
-    # 8. palabras -> " ".join(palabras)
-    assert find_in_namespace(" ".join(originales["palabras"]), str, ns), "No se encontró ninguna variable con ' '.join(palabras)"
+    # variable: palabras unir las palabras con un ' ' (espacio en blanco)
+    assert find_in_namespace(" ".join(originales["palabras"]), str, ns), "No se encontró ninguna función adecuada para palabras"
 
-    # 9. texto4 -> strip()
-    assert find_in_namespace(originales["texto4"].strip(), str, ns), "No se encontró ninguna variable con texto4.strip()"
+    # variable: texto4 quitar los espacios en blanco
+    assert find_in_namespace(originales["texto4"].strip(), str, ns), "No se encontró ninguna función adecuada para texto4"
 
-    # 10. texto5 -> replace("Jhon", algo)
+    # variable: texto5 reemplazar la palabra Jhon a tu nombre
     orig = originales["texto5"]
     needle = "Jhon"
     pos = orig.find(needle)
@@ -74,19 +74,19 @@ def test_transformaciones_correctas():
                         break
     assert found_replace, "No se encontró un reemplazo válido de 'Jhon' en texto5"
 
-    # 11. texto6 -> split("_")
-    assert find_in_namespace(originales["texto6"].split("_"), list, ns), "No se encontró ninguna variable con texto6.split('_')"
+    # variable: texto6 separar el texto por el caracter '_'
+    assert find_in_namespace(originales["texto6"].split("_"), list, ns), "No se encontró ninguna función adecuada para texto6"
 
-    # 12. texto7 -> find("colonias")
-    assert find_in_namespace(originales["texto7"].find("colonias"), int, ns), "No se encontró ninguna variable con texto7.find('colonias')"
+    # variable: texto7 encontrar el indice de la palabra colonias
+    assert find_in_namespace(originales["texto7"].find("colonias"), int, ns), "No se encontró ninguna función adecuada para texto7"
 
-    # 13. texto8 -> quitar tildes (verificamos que ya no existan vocales con tilde)
+    # variable: texto8 quitar tildes (verificamos que ya no existan vocales con tilde)
     found_no_tildes = False
     for var_name in dir(ns):
         if not var_name.startswith('__'):
             var_value = getattr(ns, var_name)
             if isinstance(var_value, str) and all(vocal not in var_value for vocal in "áéíóúÁÉÍÓÚ"):
-                if "�" in var_value:  # reemplazo usado
+                if "�" in var_value:
                     found_no_tildes = True
                     break
     assert found_no_tildes, "No se encontró ninguna variable que reemplace las tildes en texto8"
