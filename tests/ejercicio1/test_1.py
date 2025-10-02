@@ -1,4 +1,4 @@
-# Test 1 - Validación de la no modificación de las variables del ejercicio1
+# Test 1 - Validación de la no modificación de las variables del ejercicio1 
 
 import sys
 import os
@@ -12,4 +12,5 @@ def test_1():
         from funciones_ejercicio1 import obtener_variables_ejercicio1
         obtener_variables_ejercicio1()
     except Exception as e:
-        pytest.fail(f"El archivo funciones_ejercicio1.py fue modificado incorrectamente. Error: {str(e)}")
+        pytest.fail(f"El archivo funciones_ejercicio1.py. Recuerde no modificar el archivo funciones_ejercicio1.py. Error: {str(e)}")
+        
