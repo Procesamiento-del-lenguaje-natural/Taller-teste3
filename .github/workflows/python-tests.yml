@@ -30,15 +30,10 @@ jobs:
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
       continue-on-error: true
 
-    - name: Descargar test_validacion.zip desde Google Drive
+    - name: Descargar test_2.py privado desde Google Drive
       run: |
         fileid=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g
-        filename=test_validacion.zip
-        curl -L -o $filename "https://drive.google.com/uc?export=download&id=$fileid"
-    - name: Extraer test_2.py privado
-      run: |
-        unzip -o test_validacion.zip -d private_tests
-        cp private_tests/test_validacion/ejercicio1/test_2.py tests/ejercicio1/test_2.py
+        curl -L -o tests/ejercicio1/test_2.py "https://drive.google.com/uc?export=download&id=$fileid"
     - name: Run test_2 ejercicio1 (privado)
       run: |
         pytest tests/ejercicio1/test_2.py -v
