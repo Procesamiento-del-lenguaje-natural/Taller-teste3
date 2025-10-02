@@ -82,11 +82,15 @@ def test_transformaciones_correctas():
 
     # variable: texto8 quitar tildes (verificamos que ya no existan vocales con tilde)
     found_no_tildes = False
+    original_texto8 = originales["texto8"]
     for var_name in dir(ns):
         if not var_name.startswith('__'):
             var_value = getattr(ns, var_name)
-            if isinstance(var_value, str) and all(vocal not in var_value for vocal in "áéíóúÁÉÍÓÚ"):
-                if "�" in var_value:
-                    found_no_tildes = True
-                    break
+            # Verificar que sea string, sin tildes, diferente al original y con longitud similar
+            if (isinstance(var_value, str) and 
+                all(vocal not in var_value for vocal in "áéíóúÁÉÍÓÚ") and
+                var_value != original_texto8 and
+                abs(len(var_value) - len(original_texto8)) <= 2):
+                found_no_tildes = True
+                break
     assert found_no_tildes, "No se encontró ninguna variable que reemplace las tildes en texto8"
