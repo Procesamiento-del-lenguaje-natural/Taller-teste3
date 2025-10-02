@@ -4,7 +4,7 @@ import sys
 import os
 import pytest
 
-# Añadir la ruta al directorio 'data' para importar la función  
+# Añadir la ruta al directorio 'data' para importar la función   
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
 
 def test_1():

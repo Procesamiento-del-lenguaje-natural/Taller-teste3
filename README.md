@@ -1,8 +1,54 @@
+## Cómo activar y desactivar el entorno virtual
+
+**Activar el entorno virtual:**
+
+- **Windows:**
+  ```powershell
+  .venv\Scripts\activate
+  ```
+- **MacOS / Linux:**
+  ```bash
+  source .venv/bin/activate
+  ```
+
+Verás el prefijo `(.venv)` en tu terminal si está activo.
+
+**Desactivar el entorno virtual:**
+
+En cualquier sistema, ejecuta:
+```bash
+deactivate
+```
+
 # Taller-1-teste2
+
 
 ## Instalación de dependencias
 
 Asegúrate de tener Python 3.8 o superior instalado.
+
+**Para correr localmente:**
+
+1. Abre una terminal en la carpeta del proyecto.
+2. Crea un entorno virtual:
+
+   - **Windows:**
+     ```powershell
+     python -m venv .venv
+     .venv\Scripts\activate
+     ```
+   - **MacOS / Linux:**
+     ```bash
+     python3 -m venv .venv
+     source .venv/bin/activate
+     ```
+
+3. Instala las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+Esto instalará todas las dependencias necesarias para ejecutar los tests y notebooks correctamente.
 
 ### Windows
 
