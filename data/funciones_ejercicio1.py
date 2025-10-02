@@ -1,5 +1,4 @@
 # funciones_ejercicio1.py
-# Funciones y variables extraídas del notebook Ejercicio1.ipynb para ser reutilizadas en tests y otros scripts.
 
 def obtener_variables_ejercicio1():
     texto1t = 'ESTE TEXTO EN MINUSCULAS'

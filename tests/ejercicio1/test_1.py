@@ -6,11 +6,14 @@ import pytest
 
 # Añadir la ruta al directorio 'data' para importar la función 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
-from funciones_ejercicio1 import obtener_variables_ejercicio1
-
 
 def test_1():
-    originales = obtener_variables_ejercicio1()
+    # Intentar obtener las variables originales
+    try:
+        from funciones_ejercicio1 import obtener_variables_ejercicio1
+        originales = obtener_variables_ejercicio1()
+    except Exception as e:
+        assert False, f"Error al cargar las variables originales del archivo funciones_ejercicio1.py. El archivo fue modificado incorrectamente. Error: {str(e)}"
 
     texto1 = 'ESTE TEXTO EN MINUSCULAS'
     texto2 = 'este texto en mayusculas'
