@@ -12,9 +12,12 @@ def test_funciones_usadas():
 
     codigo = "\n".join(cell.source for cell in nb.cells if cell.cell_type == 'code')
 
-    # Validar que se use texto1.lower()
-    assert re.search(r"texto1_teste\s*=\s*texto1\.lower\(\)", codigo), (
-        "No se encontró el uso de 'texto1.lower()' para definir 'texto1_teste'."
+    # Validar que se use texto1.lower() y no solo un print
+    tiene_print = re.search(r'print\(["\"][^\)]*minusculas[^\)]*["\"]\)', codigo, re.IGNORECASE)
+    tiene_lower = re.search(r"texto1_teste\s*=\s*texto1\.lower\(\)", codigo)
+    assert tiene_lower, (
+        "No se encontró el uso de 'texto1.lower()' para definir 'texto1_teste'. "
+        + ("Solo se encontró un print con la respuesta, no la transformación requerida." if tiene_print else "")
     )
     # Validar que se use texto2.upper()
     assert re.search(r"texto2_test\s*=\s*texto2\.upper\(\)", codigo), (
