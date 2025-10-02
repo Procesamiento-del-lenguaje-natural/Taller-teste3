@@ -25,59 +25,47 @@ def test_2():
     originales = obtener_variables_ejercicio1()
     ns = resultados
 
-    # variable: texto1 a minusculas
-    assert find_in_namespace(originales["texto1"].lower(), str, ns), "No se encontró ninguna función adecuada para texto1"
-    
-    # variable: texto2 a mayusculas
-    assert find_in_namespace(originales["texto2"].upper(), str, ns), "No se encontró ninguna función adecuada para texto2"
+    # Diccionario de variables transformadas esperadas: nombre_variable: valor_esperado
+    variables_esperadas = {
+        'texto1_teste': originales["texto1"].lower(),
+        'texto2_test': originales["texto2"].upper(),
+        'nombre': originales["nombre"].capitalize(),
+        'texto3_t': originales["texto3"].capitalize(),
+        'apples_t': originales["apples"].count("apples"),
+        'aeppel_t': originales["apples"].find("aeppel"),
+        'formateo_t': None,  # Se valida aparte
+        'palabras_t': " ".join(originales["palabras"]),
+        'texto4_t': originales["texto4"].strip(),
+        # texto5_t y texto6_t se validan aparte
+    }
 
-    # variable: nombre cada primer letra de cada palabra en mayuscula
-    assert find_in_namespace(originales["nombre"].capitalize(), str, ns), "No se encontró ninguna función adecuada para nombre"
+    # Validar que cada variable transformada existe y tiene el valor esperado
+    for var, valor_esperado in variables_esperadas.items():
+        if var == 'formateo_t':
+            # Validar que existe y contiene el formato esperado
+            assert hasattr(ns, var), f"No se encontró la variable '{var}' en el archivo de resultados."
+            valor = getattr(ns, var)
+            assert isinstance(valor, str) and "My name is" in valor and "I'm" in valor, f"La variable '{var}' no tiene el formato esperado. Valor encontrado: {valor!r}"
+        else:
+            assert hasattr(ns, var), f"No se encontró la variable '{var}' en el archivo de resultados."
+            valor = getattr(ns, var)
+            assert valor == valor_esperado, f"La variable '{var}' tiene un valor incorrecto. Esperado: {valor_esperado!r}, encontrado: {valor!r}"
 
-    #variable: texto3 capitalizado
-    assert find_in_namespace(originales["texto3"].capitalize(), str, ns), "No se encontró ninguna función adecuada para texto3"
-
-    # variable: apples contar las ocurrencias de la palabra 'apples'
-    assert find_in_namespace(originales["apples"].count("apples"), int, ns), "No se encontró ninguna función adecuada para apples"
-
-    # variable: apples encontrar en que lugar del texto esta palabra 'aeppel'
-    assert find_in_namespace(originales["apples"].find("aeppel"), int, ns), "No se encontró ninguna función adecuada para aeppel"
-
-    # variable: formateo darle tu nombre y tu edad al texto
-    found_format = False
-    for var_name in dir(ns):
-        if not var_name.startswith('__'):
-            var_value = getattr(ns, var_name)
-            if isinstance(var_value, str) and "My name is" in var_value and "I'm" in var_value:
-                found_format = True
-                break
-    assert found_format, "No se encontró ninguna función adecuada para formateo"
-
-    # variable: palabras unir las palabras con un ' ' (espacio en blanco)
-    assert find_in_namespace(" ".join(originales["palabras"]), str, ns), "No se encontró ninguna función adecuada para palabras"
-
-    # variable: texto4 quitar los espacios en blanco
-    assert find_in_namespace(originales["texto4"].strip(), str, ns), "No se encontró ninguna función adecuada para texto4"
-
-    # variable: texto5 reemplazar la palabra Jhon a tu nombre
+    # texto5_t: reemplazar la palabra Jhon a tu nombre
     orig = originales["texto5"]
     needle = "Jhon"
     pos = orig.find(needle)
-    found_replace = False
+    assert hasattr(ns, 'texto5_t'), "No se encontró la variable 'texto5_t' en el archivo de resultados."
+    valor = getattr(ns, 'texto5_t')
     if pos != -1:
         left, right = orig[:pos], orig[pos+len(needle):]
-        for var_name in dir(ns):
-            if not var_name.startswith('__'):
-                var_value = getattr(ns, var_name)
-                if isinstance(var_value, str) and var_value != orig and var_value.startswith(left) and var_value.endswith(right) and ("Jhon" not in var_value):
-                    middle = var_value[len(left): len(var_value) - len(right)] if len(right) > 0 else var_value[len(left):]
-                    if middle.strip():
-                        found_replace = True
-                        break
-    assert found_replace, "No se encontró un reemplazo válido de 'Jhon' en texto5"
+        assert valor != orig and valor.startswith(left) and valor.endswith(right) and ("Jhon" not in valor), \
+            f"La variable 'texto5_t' no es un reemplazo válido de 'Jhon'. Valor encontrado: {valor!r}"
 
-    # variable: texto6 separar el texto por el caracter '_'
-    assert find_in_namespace(originales["texto6"].split("_"), list, ns), "No se encontró ninguna función adecuada para texto6"
+    # texto6_t: separar el texto por el caracter '_'
+    assert hasattr(ns, 'texto6_t'), "No se encontró la variable 'texto6_t' en el archivo de resultados."
+    valor = getattr(ns, 'texto6_t')
+    assert valor == originales["texto6"].split("_"), f"La variable 'texto6_t' tiene un valor incorrecto. Esperado: {originales['texto6'].split('_')!r}, encontrado: {valor!r}"
 
     # variable: texto7 encontrar el indice de la palabra colonias
     assert find_in_namespace(originales["texto7"].find("colonias"), int, ns), "No se encontró ninguna función adecuada para texto7"
