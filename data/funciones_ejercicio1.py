@@ -2,7 +2,7 @@
 # Funciones y variables extraídas del notebook Ejercicio1.ipynb para ser reutilizadas en tests y otros scripts.
 
 def obtener_variables_ejercicio1():
-    texto1 = 'ESTE TEXTO EN MINUSCULAS'
+    texto1t = 'ESTE TEXTO EN MINUSCULAS'
     texto2 = 'este texto en mayusculas'
     nombre = 'alejandro jimenez franco'
     texto3 = 'estE texTo capitAlizado'
