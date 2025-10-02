@@ -1,7 +1,7 @@
 # funciones_ejercicio1.py
 
 def obtener_variables_ejercicio1():
-    texto1t = 'ESTE TEXTO EN MINUSCULAS'
+    texto1 = 'ESTE TEXTO EN MINUSCULAS'
     texto2 = 'este texto en mayusculas'
     nombre = 'alejandro jimenez franco'
     texto3 = 'estE texTo capitAlizado'
