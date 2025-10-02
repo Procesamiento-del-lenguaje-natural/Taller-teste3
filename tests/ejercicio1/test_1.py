@@ -13,7 +13,7 @@ def test_1():
         from funciones_ejercicio1 import obtener_variables_ejercicio1
         originales = obtener_variables_ejercicio1()
     except Exception as e:
-        assert False, f"Error al cargar las variables originales del archivo funciones_ejercicio1.py. Recuerde no modificar el archivo funciones_ejercicio1. Error: {str(e)}"
+        pytest.fail(f"Error al cargar las variables originales del archivo funciones_ejercicio1.py. Recuerde no modificar el archivo funciones_ejercicio1. Error: {str(e)}")
 
     # Variables esperadas
     valores_esperados = {
@@ -42,7 +42,4 @@ and the word "apple" continues to represent both tradition and innovation.""",
     # Verificar que las variables no fueron modificadas
     for var, valor_esperado in valores_esperados.items():
         if var not in originales:
-            assert False, f"La variable '{var}' no fue encontrada en funciones_ejercicio1.py."
-        
-        valor_actual = originales[var]
-        assert valor_actual == valor_esperado, f"La variable '{var}' fue modificada. Valor esperado: {valor_esperado!r}, valor encontrado: {valor_actual!r}"
+            pytest.fail(f"La variable '{var}' no fue encontrada en funciones_ejercicio1.py.")

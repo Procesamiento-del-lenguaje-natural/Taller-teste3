@@ -20,13 +20,17 @@ jobs:
         pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
 
-    - name: Run tests ejercicio1
+    - name: Run test_1 ejercicio1
       run: |
-        pytest tests/ejercicio1/ -v
+        pytest tests/ejercicio1/test_1.py -v
 
     - name: Ejecutar notebook ejercicio1
       run: |
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
+
+    - name: Run test_2 ejercicio1
+      run: |
+        pytest tests/ejercicio1/test_2.py -v
 
     - name: Ejecutar notebook ejercicio2
       run: |
