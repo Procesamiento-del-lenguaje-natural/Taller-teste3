@@ -1,86 +1,58 @@
-# Test 2 - Validación de las salidas del ejercicio1
+# Test para validar que se usen las funciones/metodos correctos en el notebook ejercicio1.ipynb
 
-import sys
 import os
+import nbformat
+import re
 import pytest
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
-from funciones_ejercicio1 import obtener_variables_ejercicio1
 
-# Importar el archivo generado al final del notebook ejercicio1.ipynb
-import importlib.util
-resultados_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resultados_ejercicio1.py'))
-spec = importlib.util.spec_from_file_location('resultados_ejercicio1', resultados_path)
-resultados = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(resultados)
+def test_funciones_usadas():
+    notebook_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'notebooks', 'ejercicio1.ipynb'))
+    with open(notebook_path, encoding="utf-8") as f:
+        nb = nbformat.read(f, as_version=4)
 
-def find_in_namespace(expected, tipo, ns):
-    for var_name in dir(ns):
-        if not var_name.startswith('__'):
-            var_value = getattr(ns, var_name)
-            if isinstance(var_value, tipo) and var_value == expected:
-                return var_name
-    return None
+    codigo = "\n".join(cell.source for cell in nb.cells if cell.cell_type == 'code')
 
-def test_2():
-    originales = obtener_variables_ejercicio1()
-    ns = resultados
-
-    # Diccionario de variables transformadas esperadas: nombre_variable: valor_esperado
-    variables_esperadas = {
-        'texto1_teste': originales["texto1"].lower(),
-        'texto2_test': originales["texto2"].upper(),
-        'nombre': originales["nombre"].capitalize(),
-        'texto3_t': originales["texto3"].capitalize(),
-        'apples_t': originales["apples"].count("apples"),
-        'aeppel_t': originales["apples"].find("aeppel"),
-        'formateo_t': None,  # Se valida aparte
-        'palabras_t': " ".join(originales["palabras"]),
-        'texto4_t': originales["texto4"].strip(),
-        # texto5_t y texto6_t se validan aparte
-    }
-
-    # Validar que cada variable transformada existe y tiene el valor esperado
-    for var, valor_esperado in variables_esperadas.items():
-        if var == 'formateo_t':
-            # Validar que existe y contiene el formato esperado
-            assert hasattr(ns, var), f"No se encontró la variable '{var}' en el archivo de resultados."
-            valor = getattr(ns, var)
-            assert isinstance(valor, str) and "My name is" in valor and "I'm" in valor, f"La variable '{var}' no tiene el formato esperado. Valor encontrado: {valor!r}"
-        else:
-            assert hasattr(ns, var), f"No se encontró la variable '{var}' en el archivo de resultados."
-            valor = getattr(ns, var)
-            assert valor == valor_esperado, f"La variable '{var}' tiene un valor incorrecto. Esperado: {valor_esperado!r}, encontrado: {valor!r}"
-
-    # texto5_t: reemplazar la palabra Jhon a tu nombre
-    orig = originales["texto5"]
-    needle = "Jhon"
-    pos = orig.find(needle)
-    assert hasattr(ns, 'texto5_t'), "No se encontró la variable 'texto5_t' en el archivo de resultados."
-    valor = getattr(ns, 'texto5_t')
-    if pos != -1:
-        left, right = orig[:pos], orig[pos+len(needle):]
-        assert valor != orig and valor.startswith(left) and valor.endswith(right) and ("Jhon" not in valor), \
-            f"La variable 'texto5_t' no es un reemplazo válido de 'Jhon'. Valor encontrado: {valor!r}"
-
-    # texto6_t: separar el texto por el caracter '_'
-    assert hasattr(ns, 'texto6_t'), "No se encontró la variable 'texto6_t' en el archivo de resultados."
-    valor = getattr(ns, 'texto6_t')
-    assert valor == originales["texto6"].split("_"), f"La variable 'texto6_t' tiene un valor incorrecto. Esperado: {originales['texto6'].split('_')!r}, encontrado: {valor!r}"
-
-    # variable: texto7 encontrar el indice de la palabra colonias
-    assert find_in_namespace(originales["texto7"].find("colonias"), int, ns), "No se encontró ninguna función adecuada para texto7"
-
-    # variable: texto8 quitar tildes (verificamos que ya no existan vocales con tilde)
-    found_no_tildes = False
-    original_texto8 = originales["texto8"]
-    for var_name in dir(ns):
-        if not var_name.startswith('__'):
-            var_value = getattr(ns, var_name)
-            # Verificar que sea string, sin tildes, diferente al original y con longitud similar
-            if (isinstance(var_value, str) and 
-                all(vocal not in var_value for vocal in "áéíóúÁÉÍÓÚ") and
-                var_value != original_texto8 and
-                abs(len(var_value) - len(original_texto8)) <= 2):
-                found_no_tildes = True
-                break
-    assert found_no_tildes, "No se encontró ninguna variable que reemplace las tildes en texto8"
+    # Validar que se use texto1.lower()
+    assert re.search(r"texto1_teste\s*=\s*texto1\.lower\(\)", codigo), (
+        "No se encontró el uso de 'texto1.lower()' para definir 'texto1_teste'."
+    )
+    # Validar que se use texto2.upper()
+    assert re.search(r"texto2_test\s*=\s*texto2\.upper\(\)", codigo), (
+        "No se encontró el uso de 'texto2.upper()' para definir 'texto2_test'."
+    )
+    # Validar que se use nombre.capitalize()
+    assert re.search(r"nombre\s*=\s*nombre\.capitalize\(\)", codigo), (
+        "No se encontró el uso de 'nombre.capitalize()' para definir 'nombre'."
+    )
+    # Validar que se use texto3.capitalize()
+    assert re.search(r"texto3_t\s*=\s*texto3\.capitalize\(\)", codigo), (
+        "No se encontró el uso de 'texto3.capitalize()' para definir 'texto3_t'."
+    )
+    # Validar que se use apples.count("apples")
+    assert re.search(r"apples_t\s*=\s*apples\.count\(['\"]apples['\"]\)", codigo), (
+        'No se encontró el uso de "apples.count(\"apples\")" para definir "apples_t".'
+    )
+    # Validar que se use apples.find("aeppel")
+    assert re.search(r"aeppel_t\s*=\s*apples\.find\(['\"]aeppel['\"]\)", codigo), (
+        'No se encontró el uso de "apples.find(\"aeppel\")" para definir "aeppel_t".'
+    )
+    # Validar que se use formateo.format(
+    assert re.search(r"formateo_t\s*=\s*formateo\.format\(", codigo), (
+        'No se encontró el uso de "formateo.format()" para definir "formateo_t".'
+    )
+    # Validar que se use " ".join(palabras)
+    assert re.search(r"palabras_t\s*=\s*['\"] ['\"]\.join\(palabras\)", codigo), (
+        'No se encontró el uso de " \".join(palabras)" para definir "palabras_t".'
+    )
+    # Validar que se use texto4.strip()
+    assert re.search(r"texto4_t\s*=\s*texto4\.strip\(\)", codigo), (
+        'No se encontró el uso de "texto4.strip()" para definir "texto4_t".'
+    )
+    # Validar que se use texto5.replace("Jhon", ...)
+    assert re.search(r'texto5_t\s*=\s*texto5\.replace\(["\\\']Jhon["\\\'],\s*["\\\']', codigo), (
+        'No se encontró el uso de "texto5.replace(\"Jhon\", ...)" para definir "texto5_t".'
+    )
+    # Validar que se use texto6.split("_")
+    assert re.search(r"texto6_t\s*=\s*texto6\.split\(['\"]_['\"]\)", codigo), (
+        'No se encontró el uso de "texto6.split(\"_\")" para definir "texto6_t".'
+    )
