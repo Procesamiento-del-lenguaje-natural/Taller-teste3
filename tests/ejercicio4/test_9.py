@@ -4,7 +4,6 @@ import os
 import nbformat
 
 def test_validacion_salida_ejercicio4():
-    """Verifica que la salida del procesamiento sea correcta"""
     
     # Leer notebook
     test_dir = os.path.dirname(__file__)
