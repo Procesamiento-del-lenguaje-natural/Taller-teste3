@@ -6,7 +6,7 @@ import pytest
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
 from funciones_ejercicio1 import obtener_variables_ejercicio1
 
-# Importar el archivo generado por el notebook con las variables transformadas
+# Importar el archivo generado al final del notebook ejercicio1.ipynb
 import importlib.util
 resultados_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resultados_ejercicio1.py'))
 spec = importlib.util.spec_from_file_location('resultados_ejercicio1', resultados_path)
