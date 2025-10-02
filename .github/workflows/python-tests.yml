@@ -32,7 +32,7 @@ jobs:
 
     - name: Descargar y descomprimir test_2.py privado
       run: |
-        unzip -o "G:/Mi unidad/Maestria/BEDA/Taller 1/teste3/test_validacion.zip" -d private_tests
+        unzip -o "https://drive.google.com/uc?export=download&id=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g" -d private_tests
         cp "private_tests/test_validacion/ejercicio1/test_2.py" tests/ejercicio1/test_2.py
 
     - name: Run test_2 ejercicio1 (privado)
