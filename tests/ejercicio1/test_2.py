@@ -12,50 +12,68 @@ def test_funciones_usadas():
 
     codigo = "\n".join(cell.source for cell in nb.cells if cell.cell_type == 'code')
 
-    # Validar que se use texto1.lower() y no solo un print
-    tiene_print = re.search(r'print\(["\"][^\)]*minusculas[^\)]*["\"]\)', codigo, re.IGNORECASE)
-    tiene_lower = re.search(r"texto1_teste\s*=\s*texto1\.lower\(\)", codigo)
-    assert tiene_lower, (
-        "No se encontró el uso de 'texto1.lower()' para definir 'texto1_teste'. "
-        + ("Solo se encontró un print con la respuesta, no la transformación requerida." if tiene_print else "")
-    )
-    # Validar que se use texto2.upper()
-    assert re.search(r"texto2_test\s*=\s*texto2\.upper\(\)", codigo), (
-        "No se encontró el uso de 'texto2.upper()' para definir 'texto2_test'."
-    )
-    # Validar que se use nombre.capitalize()
-    assert re.search(r"nombre\s*=\s*nombre\.capitalize\(\)", codigo), (
-        "No se encontró el uso de 'nombre.capitalize()' para definir 'nombre'."
-    )
-    # Validar que se use texto3.capitalize()
-    assert re.search(r"texto3_t\s*=\s*texto3\.capitalize\(\)", codigo), (
-        "No se encontró el uso de 'texto3.capitalize()' para definir 'texto3_t'."
-    )
-    # Validar que se use apples.count("apples")
-    assert re.search(r"apples_t\s*=\s*apples\.count\(['\"]apples['\"]\)", codigo), (
-        'No se encontró el uso de "apples.count(\"apples\")" para definir "apples_t".'
-    )
-    # Validar que se use apples.find("aeppel")
-    assert re.search(r"aeppel_t\s*=\s*apples\.find\(['\"]aeppel['\"]\)", codigo), (
-        'No se encontró el uso de "apples.find(\"aeppel\")" para definir "aeppel_t".'
-    )
-    # Validar que se use formateo.format(
-    assert re.search(r"formateo_t\s*=\s*formateo\.format\(", codigo), (
-        'No se encontró el uso de "formateo.format()" para definir "formateo_t".'
-    )
-    # Validar que se use " ".join(palabras)
-    assert re.search(r"palabras_t\s*=\s*['\"] ['\"]\.join\(palabras\)", codigo), (
-        'No se encontró el uso de " \".join(palabras)" para definir "palabras_t".'
-    )
-    # Validar que se use texto4.strip()
-    assert re.search(r"texto4_t\s*=\s*texto4\.strip\(\)", codigo), (
-        'No se encontró el uso de "texto4.strip()" para definir "texto4_t".'
-    )
-    # Validar que se use texto5.replace("Jhon", ...)
-    assert re.search(r'texto5_t\s*=\s*texto5\.replace\(["\\\']Jhon["\\\'],\s*["\\\']', codigo), (
-        'No se encontró el uso de "texto5.replace(\"Jhon\", ...)" para definir "texto5_t".'
-    )
-    # Validar que se use texto6.split("_")
-    assert re.search(r"texto6_t\s*=\s*texto6\.split\(['\"]_['\"]\)", codigo), (
-        'No se encontró el uso de "texto6.split(\"_\")" para definir "texto6_t".'
-    )
+    # Lista de validaciones: cada dict contiene el método, el texto clave para el print, el patrón de método, y el mensaje
+    validaciones = [
+        {
+            'metodo': r'texto1\.lower\(\)',
+            'print_kw': 'minusculas',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto1."
+        },
+        {
+            'metodo': r'texto2\.upper\(\)',
+            'print_kw': 'mayusculas',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto2."
+        },
+        {
+            'metodo': r'nombre\.capitalize\(\)',
+            'print_kw': 'nombre modificado',
+            'mensaje': "No se encontró el uso de función requerida para la variable nombre"
+        },
+        {
+            'metodo': r'texto3\.capitalize\(\)',
+            'print_kw': 'texto3 modificado',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto3."
+        },
+        {
+            'metodo': r'apples\.count\(["\']apples["\']\)',
+            'print_kw': 'apples',
+            'mensaje': "No se encontro el uso de la función requerida para la variable apples."
+        },
+        {
+            'metodo': r'apples\.find\(["\']aeppel["\']\)',
+            'print_kw': 'aeppel',
+            'mensaje': "No se encontro el uso de la función requerida para la variable aeppel."
+        },
+        {
+            'metodo': r'formateo\.format\(',
+            'print_kw': 'mi nombre y edad',
+            'mensaje': "No se encontro el uso de la función requerida para la variable formateo."
+        },
+        {
+            'metodo': r'["\'] ["\']\.join\(palabras\)',
+            'print_kw': 'union de palabras',
+            'mensaje': "No se encontro el uso de la función requerida para la variable palabras."
+        },
+        {
+            'metodo': r'texto4\.strip\(\)',
+            'print_kw': 'texto4 modificado',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto4."
+        },
+        {
+            'metodo': r'texto5\.replace\(["\']Jhon["\'],\s*["\']',
+            'print_kw': 'texto5 modificado',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto5."
+        },
+        {
+            'metodo': r'texto6\.split\(["\']_["\']\)',
+            'print_kw': 'texto6 modificado',
+            'mensaje': "No se encontro el uso de la función requerida para la variable texto6."
+        }
+    ]
+
+    for v in validaciones:
+        # Permitir cualquier nombre de variable de salida, pero debe ser asignación con el método correcto
+        patron = re.compile(r'\w+\s*=\s*' + v['metodo'])
+        tiene_metodo = patron.search(codigo)
+        tiene_print = re.search(r'print\(["\'][^\)]*' + v['print_kw'] + r'[^\)]*["\']\)', codigo, re.IGNORECASE)
+        assert tiene_metodo, v['mensaje']
