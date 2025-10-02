@@ -25,7 +25,7 @@ When European settlers brought apples to North America in the 17th century,
 they became ingrained in American culture, epitomized by the legendary figure Johnny Appleseed.
 Today, apples remain one of the most popular fruits globally,
 and the word "apple" continues to represent both tradition and innovation."""
-    formateos = 'My name is {name}, I\'m {age}'
+    formateo = 'My name is {name}, I\'m {age}'
     palabras = ("Hello", "World", "!");
     texto4 = "     programar     "
     texto5 = "Jhon loves programming"
