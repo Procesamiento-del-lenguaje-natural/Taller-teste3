@@ -1,3 +1,5 @@
+# Test 2 - Validación de las salidas del ejercicio1
+
 import sys
 import os
 import pytest
@@ -19,7 +21,7 @@ def find_in_namespace(expected, tipo, ns):
                 return var_name
     return None
 
-def test_transformaciones_correctas():
+def test_2():
     originales = obtener_variables_ejercicio1()
     ns = resultados
 

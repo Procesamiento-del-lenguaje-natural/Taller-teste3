@@ -1,8 +1,8 @@
-# Test 4
+# Test 4 - Validación de uso correcto de str.maketrans y .translate en ejercicio2
 import re
 import os
 
-def test_uso_maketrans_y_translate():
+def test_4():
     import nbformat
     
     test_dir = os.path.dirname(__file__)

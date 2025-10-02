@@ -2,7 +2,7 @@
 import re
 import os
 
-def test_metodos_regex_avanzados():
+def test_7():
 
     import nbformat
     test_dir = os.path.dirname(__file__)

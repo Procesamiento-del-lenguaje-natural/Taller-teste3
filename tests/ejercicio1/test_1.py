@@ -1,3 +1,5 @@
+# Test 1 - Validación de la no modificación de las variables del ejercicio1
+
 import sys
 import os
 import pytest
@@ -7,9 +9,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from funciones_ejercicio1 import obtener_variables_ejercicio1
 
 
-def test_variables_no_modificadas():
+def test_1():
     originales = obtener_variables_ejercicio1()
-    
+
     texto1 = 'ESTE TEXTO EN MINUSCULAS'
     texto2 = 'este texto en mayusculas'
     nombre = 'alejandro jimenez franco'
@@ -23,7 +25,7 @@ When European settlers brought apples to North America in the 17th century,
 they became ingrained in American culture, epitomized by the legendary figure Johnny Appleseed.
 Today, apples remain one of the most popular fruits globally,
 and the word "apple" continues to represent both tradition and innovation."""
-    formateo = 'My name is {name}, I\'m {age}'
+    formateos = 'My name is {name}, I\'m {age}'
     palabras = ("Hello", "World", "!");
     texto4 = "     programar     "
     texto5 = "Jhon loves programming"

@@ -1,10 +1,11 @@
+# Test 5 - Validación de la salida del ejercicio2
 
 import os
 import nbformat
 import re
 import pytest
 
-def test_traduccion_correcta():
+def test_5():
     test_dir = os.path.dirname(__file__)
     
     # Intentar primero el notebook ejecutado

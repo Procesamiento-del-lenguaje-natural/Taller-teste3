@@ -1,8 +1,8 @@
-# Test 6 - Validación de la función re.match en ejercicio3 
+# Test 6 - Validación de la función re.match del ejercicio3 
 import os
 import nbformat
 
-def test_validacion_test_6():
+def test_6():
     """Test que valida el uso correcto de re.match() con patrones regex específicos"""
     
     # Configurar rutas del notebook 
