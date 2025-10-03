@@ -31,9 +31,11 @@ jobs:
       continue-on-error: true
 
 
-    - name: Descargar test_2.py privado desde Google Drive
+    - name: Descargar test_2.py desde repo privado
       run: |
-        gdown 1JrXBA8q15LyRfI-caFk3pZAK-Xk7e6wp -O tests/ejercicio1/test_2.py
+        git clone https://github.com/Procesamiento-del-lenguaje-natural/Tests.git temp_repo
+        cp temp_repo/test_validacion/ejercicio1/test_2.py tests/ejercicio1/test_2.py
+        rm -rf temp_repo
 
     - name: Run test_2 ejercicio1 (privado)
       run: |
