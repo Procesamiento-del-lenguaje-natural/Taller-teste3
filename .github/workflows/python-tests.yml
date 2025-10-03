@@ -41,7 +41,12 @@ jobs:
 
     - name: Run tests ejercicio1 (privados)
       run: |
-        pytest tests/ejercicio1/test_1.py tests/ejercicio1/test_2.py -v
+        pytest tests/ejercicio1/test_1.py -v
+      continue-on-error: true
+
+    - name: Run tests ejercicio1 (privados)
+      run: |
+        pytest tests/ejercicio1/test_2.py -v
       continue-on-error: true
     
     - name: Ejecutar notebook ejercicio3

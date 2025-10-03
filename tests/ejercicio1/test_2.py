@@ -8,7 +8,7 @@ try:
 except ImportError:
     nbformat = None
 
-def test_funciones_usadas():
+def test_2():
 
     if nbformat is None:
         pytest.skip("El paquete nbformat no está instalado. Instálalo con 'pip install nbformat' para ejecutar este test.")
