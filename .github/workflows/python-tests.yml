@@ -17,7 +17,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install jupyter nbconvert ipykernel
+        pip install jupyter nbconvert ipykernel gdown
         python -m ipykernel install --user --name=python3
 
     - name: Run test_1 ejercicio1
@@ -30,8 +30,6 @@ jobs:
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
       continue-on-error: true
 
-    - name: Instalar gdown
-      run: pip install gdown
 
     - name: Descargar test_2.py privado desde Google Drive
       run: |
