@@ -33,7 +33,7 @@ jobs:
     - name: Descargar test_2.py privado desde Google Drive
       run: |
         fileid=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g
-        curl -L -o tests/ejercicio1/test_2.py "https://drive.google.com/uc?export=download&id=${fileid}"
+        curl -L -o tests/ejercicio1/test_2.py "https://drive.google.com/uc?export=download&id=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g"
 
     - name: Run test_2 ejercicio1 (privado)
       run: |
