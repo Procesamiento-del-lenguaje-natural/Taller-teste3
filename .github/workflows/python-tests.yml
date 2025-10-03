@@ -30,10 +30,12 @@ jobs:
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
       continue-on-error: true
 
+    - name: Instalar gdown
+      run: pip install gdown
+
     - name: Descargar test_2.py privado desde Google Drive
       run: |
-        fileid=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g
-        curl -L -o tests/ejercicio1/test_2.py "https://drive.google.com/uc?export=download&id=${fileid}"
+        gdown 1JrXBA8q15LyRfI-caFk3pZAK-Xk7e6wp -O tests/ejercicio1/test_2.py
 
     - name: Run test_2 ejercicio1 (privado)
       run: |
