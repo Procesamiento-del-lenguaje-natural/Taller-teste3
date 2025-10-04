@@ -1,4 +1,3 @@
-texto1_teste = 'este texto en minusculas'
 texto2_test = 'ESTE TEXTO EN MAYUSCULAS'
 nombre = 'Alejandro jimenez franco'
 texto3_t = 'Este texto capitalizado'
