@@ -20,20 +20,6 @@ jobs:
         pip install jupyter nbconvert ipykernel
         python -m ipykernel install --user --name=python3
 
-    - name: Configurar clave SSH para git
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.Taller_1_teste }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-    - name: Descargar tests privados desde repo privado
-      run: |
-        git clone git@github.com:Procesamiento-del-lenguaje-natural/Tests.git temp_repo
-        cp temp_repo/test_validacion/ejercicio1/test_1.py tests/ejercicio1/test_1.py
-        cp temp_repo/test_validacion/ejercicio1/test_2.py tests/ejercicio1/test_2.py
-        rm -rf temp_repo
-
     - name: Ejecutar notebook ejercicio1
       run: |
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
