@@ -25,12 +25,20 @@ jobs:
         jupyter nbconvert --to notebook --execute notebooks/ejercicio1.ipynb --output ejercicio1_out.ipynb --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=300
       continue-on-error: true
 
+<<<<<<< HEAD
     - name: Run tests ejercicio1 test_1
       run: |
         pytest tests/ejercicio1/test_1.py -v
       continue-on-error: true
 
     - name: Run tests ejercicio1 test_2
+=======
+    - name: Descargar test_2.py privado desde Google Drive
+      run: |
+        fileid=1_CgX91Qqjh3Eoz5PlBM85CFtvH0MQ_8g
+        curl -L -o tests/ejercicio1/test_2.py "https://drive.google.com/uc?export=download&id=$fileid"
+    - name: Run test_2 ejercicio1 (privado)
+>>>>>>> parent of fc39155 (prueba_profe)
       run: |
         pytest tests/ejercicio1/test_2.py -v
       continue-on-error: true
