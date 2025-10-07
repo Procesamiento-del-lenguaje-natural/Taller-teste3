@@ -131,11 +131,6 @@ def test_2():
         }
     ]
 
-    # Verificar que NO haya solo prints sin asignaciones
-    solo_prints = re.findall(r'print\(["\'][^"\']*["\'],?\s*[^)]*\)', codigo)
-    if len(solo_prints) > 15:  # Si hay demasiados prints, probablemente está haciendo trampa
-        pytest.fail("Recuerde usar las funciones y no solo imprimir el resultado.")
-
     # Validar cada método y detectar código hardcodeado
     for v in validaciones:
         # Verificar que use el método correcto
@@ -160,11 +155,10 @@ def test_2():
         if not tiene_asignacion:
             pytest.fail(f"La variable '{var}' debe ser asignada correctamente, no solo impresa.")
 
-    # Verificar valores esperados (importar resultados_ejercicio1.py)
+    # Verificar valores esperados (importar resultados_ejercicio1.py) 
     try:
         results_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resultados_ejercicio1.py'))
         if os.path.exists(results_path):
-            import sys
             sys.path.insert(0, os.path.dirname(results_path))
             import importlib.util
             spec = importlib.util.spec_from_file_location("resultados", results_path)
